@@ -34,7 +34,6 @@ class App extends React.Component{
 		}
 
 		this.searchVideos = this.searchVideos.bind(this);
-		this.clicked = this.clicked.bind(this);
 
 	}
 
@@ -45,14 +44,8 @@ class App extends React.Component{
 
 		axios.get(API_URL, {params: params}).then(response => {
 			this.setState({videos: response.data.items});
-			this.setState({activeVideo: response.data.items[0]});
 		});
 	}
-	clicked(video){
-		event.preventDefault();
-		console.log("clicked"+ video.id);
-		this.setState({activeVideo: video});
-}
 
 	render(){
 		return(
@@ -62,9 +55,8 @@ class App extends React.Component{
 					<input className="searchbar" ref="keyword" type="text"/>
 				</form>
 				<div className="main-content">
-					<VideoList videos={this.state.videos} clickd={this.clicked} />
-										<VideoPreview videos={this.state.videos} active={this.state.activeVideo}/>
-
+					<VideoPreview videos={this.state.videos} />
+					<VideoList videos={this.state.videos} />
 				</div>
 			</div>
 		)
